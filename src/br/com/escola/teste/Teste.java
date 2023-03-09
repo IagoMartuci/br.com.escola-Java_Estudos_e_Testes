@@ -11,7 +11,6 @@ public class Teste {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 		// INSTANCIANDO A CLASSE ALUNO
 		Aluno aluno = new Aluno();
 		// INSTANCIANDO A CLASSE PROFESSOR
@@ -114,7 +113,9 @@ public class Teste {
 			} else {
 				descInss = descFx1Inss + descFx2Inss + descFx3Inss + descFx4Inss;
 			}
-
+			
+			professor.setInss(descInss);
+			
 			System.out.println("INSS previsto: R$" + df.format(descInss));
 			System.out.println("-----------------------------------------------------");
 			
