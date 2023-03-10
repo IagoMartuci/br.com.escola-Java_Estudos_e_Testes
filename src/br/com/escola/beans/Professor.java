@@ -10,6 +10,10 @@ public class Professor extends Pessoa {
 	}
 	
 	public void setSalario(double salario) {
+		// Colocando validação no set do salário (Só é possível se utilizarmos public?):
+		if (setSalario < 1212) {
+			System.out.println("Salário não pode ser menor que salário mínimo");
+		}
 		this.salario = salario;
 	}
 	
