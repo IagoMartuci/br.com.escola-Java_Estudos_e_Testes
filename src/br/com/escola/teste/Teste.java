@@ -13,76 +13,87 @@ public class Teste {
 		Menu();
 	}
 
-	public static void Menu(){
-		int opcao;
-		System.out.println("Escolha a opção desejada")
-		opcao = Integer.parseInt(JOptionPane.showInputDialog("1 - Calcular média dos alunos"));
-		opcao = Integer.parseInt(JOptionPane.showInputDialog("2 - Calcular salário líquido dos professores"));
-		opcao = Integer.parseInt(JOptionPane.showInputDialog("0 - Sair"));
+	public static void Menu() {
+		int opcao = Integer.parseInt(JOptionPane.showInputDialog(
+				"INFORME A OPÇÃO DESEJADA \n1 - Calcular média dos alunos \n2 - Calcular salário líquido dos professores \n0 - Sair"));
 
-		switch (opcao){
-			case 1: MediaAluno(); break;
-			case 2: SalarioLiquidoProfessor(); break;
-			case 0: exit(0); break;
-			default: System.out.println("Obrigado por utilizar o sistema!"); break;
+		switch (opcao) {
+		case 1:
+			MediaAluno();
+			break;
+		case 2:
+			SalarioLiquidoProfessor();
+			break;
+		case 0:
+			JOptionPane.showMessageDialog(null, "Obrigado por utilizar o sistema!");
+			break;
+		default:
+			Menu();
+			break;
 		}
 	}
 
-	public static void MediaAluno(){
+	public static void MediaAluno() {
 		// INSTANCIANDO A CLASSE ALUNO
 		Aluno aluno = new Aluno();
 
-		int rmAluno = Integer.parseInt(JOptionPane.showInputDialog("Informe o RM do aluno"));
-		String nomeAluno = JOptionPane.showInputDialog("Informe o nome do aluno " + rmAluno);
-		int idadeAluno = Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do aluno " + nomeAluno));
-		double n1 = Double.parseDouble(JOptionPane.showInputDialog("Informe a nota da primeira prova do aluno " + nomeAluno));
-		double n2 = Double.parseDouble(JOptionPane.showInputDialog("Informe a nota da segunda prova do aluno " + nomeAluno));
-		String situacaoAluno;
+		aluno.setRm(Integer.parseInt(JOptionPane.showInputDialog("Informe o RM do aluno")));
+		aluno.setNome(JOptionPane.showInputDialog("Informe o nome do aluno " + aluno.getRm()));
+		double n1 = Double.parseDouble(
+				JOptionPane.showInputDialog("Informe a nota da primeira prova do aluno " + aluno.getNome()));
+		double n2 = Double.parseDouble(
+				JOptionPane.showInputDialog("Informe a nota da segunda prova do aluno " + aluno.getNome()));
+
+		aluno.setMedia((n1 + n2) / 2);
+
+		if (aluno.getMedia() >= 5)
+			aluno.setSituacao("Aprovado");
+		else
+			aluno.setSituacao("Reprovado");
+
+		System.out.println(
+				"RM aluno: " + aluno.getRm()
+				+ "\nNome aluno: " + aluno.getNome() 
+				+ "\nSituacao aluno: " + aluno.getSituacao() + " com " + aluno.getMedia() + " de media");
+
+		String nomeAluno = aluno.getNome();
+		VerificarIdadeAluno(nomeAluno);
+	}
+
+	public static void VerificarIdadeAluno(String nomeAluno) {
+		Aluno aluno = new Aluno();
+
+		aluno.setIdade(Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do aluno " + nomeAluno)));
+
 		boolean maiorIdade;
-		double mediaAluno;
 
-		mediaAluno = (n1 + n2) / 2;
-
-		aluno.setRm(rmAluno);
-		aluno.setNome(nomeAluno);
-		aluno.setIdade(idadeAluno);
-		aluno.setMedia(mediaAluno);
-
-		if (idadeAluno >= 18)
+		if (aluno.getIdade() >= 18)
 			maiorIdade = true;
-
 		else
 			maiorIdade = false;
 
-		if (mediaAluno >= 5)
-			situacaoAluno = "APROVADO";
-		else
-			situacaoAluno = "REPROVADO";
-
-		aluno.setSituacao(situacaoAluno);
-
-		System.out.println("RM aluno: " + rmAluno);
-		System.out.println("Nome aluno: " + nomeAluno);
-		System.out.println("Idade aluno: " + idadeAluno);
-		System.out.println("Situacao aluno: " + situacaoAluno + " com " + mediaAluno + " de media");
-
 		if (maiorIdade == true)
-			System.out.println("Aluno assina o boletim (Aluno maior de 18 anos)");
+			// Formatação de Strings %, "s" é o tipo do dado que está na variável que irá compor o texto nesse caso string e "d" int
+			System.out.println(String.format("O aluno %s assina o boletim, idade do aluno %d anos.", nomeAluno, aluno.getIdade()));
 		else
-			System.out.println("Responsavel assina o boletim (Aluno menor de 18 anos)");
+			System.out.println(String.format("O responsavel do aluno %s assina o boletim, idade do aluno %d anos.", nomeAluno, aluno.getIdade()));
 	}
 
-	public static void SalarioLiquidoProfessor(){
+	public static void SalarioLiquidoProfessor() {
 		// INSTANCIANDO A CLASSE PROFESSOR
 		Professor professor = new Professor();
 		// INSTANCIANDO FORMATACAO DE CASAS DECIMAIS
 		DecimalFormat df = new DecimalFormat();
-		// Para forçar 2 casas decimais, mas em compensação se o número antes da vírgula for 0,ele não traz o 0, exemplo: ,##
-		//DecimalFormat df = new DecimalFormat("#,###.00");
+		// Para forçar 2 casas decimais, mas em compensação se o número antes da vírgula for 0, ele não traz o 0, exemplo: ,##
+		// DecimalFormat df = new DecimalFormat("#,###.00");
 
-		String nomeProf = JOptionPane.showInputDialog("Informe o nome do professor");
-		int idadeProf = Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do professor " + nomeProf));
-		double salarioProf = Double.parseDouble(JOptionPane.showInputDialog("Informe o salario do professor " + nomeProf));
+		professor.setNome(JOptionPane.showInputDialog("Informe o nome do professor"));
+		professor.setIdade(
+				Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do professor " + professor.getNome())));
+		professor.setSalario(Double
+				.parseDouble(JOptionPane.showInputDialog("Informe o salario do professor " + professor.getNome())));
+
+		// VARIAVEIS PARA CALCULO DO INNS
 		float aliqFx1Inss = 0.075F;
 		float aliqFx2Inss = 0.09F;
 		float aliqFx3Inss = 0.12F;
@@ -103,37 +114,36 @@ public class Teste {
 		double descFx2Inss = 109.38;
 		double descFx3Inss = 145.64;
 		double descFx4Inss = 482.46;
-		double descInss;
-		double salLiq;
 
-		professor.setNome(nomeProf);
-		professor.setIdade(idadeProf);
-		professor.setSalario(salarioProf);
-
-		System.out.println("Nome professor: " + professor.getNome());
-		System.out.println("Idade professor: " + professor.getIdade());
-		System.out.println("Salario professor: R$" + professor.getSalario());
-
-		if (salarioProf >= fx1Min && salarioProf <= fx1Max) {
-			descInss = salarioProf * aliqFx1Inss;
-		} else if (salarioProf >= fx2Min && salarioProf <= fx2Max) {
-			dedInss = salarioProf - dedFx1Inss;
-			descInss = (dedInss * aliqFx2Inss) + descFx1Inss;
-		} else if (salarioProf >= fx3Min && salarioProf <= fx3Max) {
-			dedInss = salarioProf - dedFx1Inss - dedFx2Inss;
-			descInss = (dedInss * aliqFx3Inss) + descFx1Inss + descFx2Inss;
-		} else if (salarioProf >= fx4Min && salarioProf <= fx4Max) {
-			dedInss = salarioProf - dedFx1Inss - dedFx2Inss - dedFx3Inss;
-			descInss = (dedInss * aliqFx4Inss) + descFx1Inss + descFx2Inss + descFx3Inss;
+		if (professor.getSalario() < 1212.00) {
+			return;
 		} else {
-			descInss = descFx1Inss + descFx2Inss + descFx3Inss + descFx4Inss;
+			if (professor.getSalario() >= fx1Min && professor.getSalario() <= fx1Max) {
+				professor.setInss(professor.getSalario() * aliqFx1Inss);
+			} 
+			else if (professor.getSalario() >= fx2Min && professor.getSalario() <= fx2Max) {
+				dedInss = professor.getSalario() - dedFx1Inss;
+				professor.setInss((dedInss * aliqFx2Inss) + descFx1Inss);
+			} 
+			else if (professor.getSalario() >= fx3Min && professor.getSalario() <= fx3Max) {
+				dedInss = professor.getSalario() - dedFx1Inss - dedFx2Inss;
+				professor.setInss((dedInss * aliqFx3Inss) + descFx1Inss + descFx2Inss);
+			} 
+			else if (professor.getSalario() >= fx4Min && professor.getSalario() <= fx4Max) {
+				dedInss = professor.getSalario() - dedFx1Inss - dedFx2Inss - dedFx3Inss;
+				professor.setInss((dedInss * aliqFx4Inss) + descFx1Inss + descFx2Inss + descFx3Inss);
+			} 
+			else {
+				professor.setInss(descFx1Inss + descFx2Inss + descFx3Inss + descFx4Inss);
+			}
 		}
 
-		professor.setInss(descInss);
-		System.out.println("Desconto INSS: R$" + df.format.professor.getInss());
+		professor.setLiquido(professor.getSalario() - professor.getInss());
 
-		salLiq = salarioProf - descInss;
-		professor.setLiquido()
-		System.out.println("Salario liquido: R$" + df.format.professor.getLiquido());
+		System.out.println("Nome professor: " + professor.getNome()
+			+ "\nIdade professor: " + professor.getIdade()
+			+ "\nSalario professor: R$" + professor.getSalario()
+			+ "\nDesconto INSS: R$" + df.format(professor.getInss())
+			+ "\nSalario liquido: R$" + df.format(professor.getLiquido()));
 	}
 }
