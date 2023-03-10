@@ -3,6 +3,7 @@ package br.com.escola.beans;
 public class Professor extends Pessoa {
 	private double salario;
 	private double inss;
+	private double liquido;
 	
 	public double getSalario() {
 		return salario;
@@ -16,8 +17,11 @@ public class Professor extends Pessoa {
 		return inss;
 	}
 	
-	public void setInss(double inss) {
-		this.inss = inss;
+	public void setInss(double inss) { this.inss = inss; }
+
+	public double getLiquido() {
+		return liquido;
 	}
 
+	public void setLiquido(double liquido) { this.liquido = liquido; }
 }
