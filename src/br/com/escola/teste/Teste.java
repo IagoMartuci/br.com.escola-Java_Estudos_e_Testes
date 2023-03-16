@@ -73,7 +73,7 @@ public class Teste {
 			maiorIdade = false;
 
 		if (maiorIdade == true)
-			// Formatação de Strings %, "s" é o tipo do dado que está na variável que irá compor o texto nesse caso string e "d" int
+			// Formatação de Strings % + o tipo do dado que está na variável que irá compor o texto nesse caso "s" string e "d" int
 			System.out.println(String.format("O aluno %s assina o boletim, idade do aluno %d anos.", nomeAluno, aluno.getIdade()));
 		else
 			System.out.println(String.format("O responsavel do aluno %s assina o boletim, idade do aluno %d anos.", nomeAluno, aluno.getIdade()));
@@ -93,7 +93,7 @@ public class Teste {
 		professor.setSalario(Double
 				.parseDouble(JOptionPane.showInputDialog("Informe o salario do professor " + professor.getNome())));
 
-		// VARIAVEIS PARA CALCULO DO INNS
+		// VARIAVEIS PARA CALCULO DO INSS
 		float aliqFx1Inss = 0.075F;
 		float aliqFx2Inss = 0.09F;
 		float aliqFx3Inss = 0.12F;
